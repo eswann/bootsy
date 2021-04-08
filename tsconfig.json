@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "module": "commonjs",
+    "target": "ES2015",
+    "sourceMap": true,
+    "sourceRoot": "src",
+    "outDir": "dist"
+  },
+  "include": ["src/**/*"],
+}
