@@ -1,6 +1,6 @@
-const { expect } = require('chai')
-const { pipe, pipeAsync } = require('../dist')
-const { performance } = require('perf_hooks')
+import { pipe, pipeAsync } from '../../src'
+import { performance } from 'perf_hooks'
+import { expect } from 'chai'
 
 const testFunc1 = (rootText) => {
   return `${rootText} the cat and the fiddle`

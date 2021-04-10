@@ -1,6 +1,6 @@
-const { expect } = require('chai')
-const delay = require('delay')
-const { overAsync } = require('../dist')
+import { expect } from 'chai'
+import delay from 'delay'
+import { overAsync } from '../../src'
 
 const testAsyncFunc1 = async ({ cat }) => {
   await delay(50)

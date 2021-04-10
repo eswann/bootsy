@@ -1,5 +1,5 @@
-const { expect } = require('chai')
-const { isString } = require('../../dist/util/string-util')
+import { expect } from 'chai'
+import { isString } from '../../src/util/string-util'
 
 describe('String Util', () => {
   it('should return true with string', () => {

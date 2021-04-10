@@ -1,4 +1,4 @@
-import { FunctionTypes } from './util/type-util'
+import { FunctionTypes } from '../util/type-util'
 import StandardFunction = FunctionTypes.StandardFunction
 
 /**
@@ -10,7 +10,7 @@ import StandardFunction = FunctionTypes.StandardFunction
  * @param args Required for the currying recursion (don't use this)
  * @returns The curried function
  */
-export function curry (fn: Function, args: any[] = []): StandardFunction {
+export function curry(fn: Function, args: any[] = []): StandardFunction {
   return (..._args: any[]) =>
     ((rest) => (rest.length >= fn.length ? fn(...rest) : curry(fn, rest)))([...args, ..._args])
 }

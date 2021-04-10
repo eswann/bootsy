@@ -1,6 +1,6 @@
-const { expect } = require('chai')
-const { getType } = require('../dist/util/type-util')
-const { curryMerge } = require('../dist')
+import { expect } from 'chai'
+import { getType } from '../../src/util/type-util'
+import { curryMerge } from '../../src'
 
 describe('curryMerge', () => {
   it('should create and execute a merged partial function', () => {
@@ -34,7 +34,7 @@ describe('curryMerge', () => {
 
   it('should work with async', async () => {
     const delay = (ms) =>
-      new Promise((resolve) => {
+      new Promise<void>((resolve) => {
         setTimeout(() => {
           resolve()
         }, ms)

@@ -1,11 +1,12 @@
-const chai = require('chai')
+import chai from 'chai'
+import chaiAsPromised from 'chai-as-promised'
+import { mapAsync } from '../../src'
+
 const { expect } = chai
 const sinon = require('sinon').createSandbox()
-const chaiAsPromised = require('chai-as-promised')
 chai.use(chaiAsPromised)
 
 const delay = require('delay')
-const { mapAsync } = require('../dist')
 
 const makeYourOwnRhyme = async (verse) => {
   await delay(50)
@@ -27,6 +28,7 @@ describe('all-funcs', () => {
   })
 
   it('Throws if array is not passed', async () => {
+    // @ts-ignore
     expect(() => mapAsync(makeYourOwnRhyme, 'hey')).to.throw()
   })
 

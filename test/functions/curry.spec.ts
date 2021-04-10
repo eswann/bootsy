@@ -1,5 +1,5 @@
-const { expect } = require('chai')
-const { curry } = require('../dist')
+import { expect } from 'chai'
+import { curry } from '../../src'
 
 describe('curry', () => {
   it('should curry a function', () => {
@@ -13,7 +13,6 @@ describe('curry', () => {
 
   it('should work when called with more arguments', () => {
     const add = curry((n, n2) => n + n2)
-
     expect(add(1, 2, 3)).to.equal(3)
   })
 

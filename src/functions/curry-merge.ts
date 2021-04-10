@@ -1,4 +1,4 @@
-import { FunctionTypes, getType } from './util/type-util'
+import { FunctionTypes, getType } from '../util/type-util'
 import ObjectFunction = FunctionTypes.ObjectFunction
 
 /**
@@ -8,7 +8,7 @@ import ObjectFunction = FunctionTypes.ObjectFunction
  * @param fn The function to call
  * @param args The partial arguments provided
  */
-export function curryMerge (fn: Function, args: Object = {}): ObjectFunction {
+export function curryMerge(fn: Function, args: Object = {}): ObjectFunction {
   return (rest) => {
     if (getType(fn) === 'Async' || getType(fn) === 'Promise') {
       return new Promise((resolve, reject) => {

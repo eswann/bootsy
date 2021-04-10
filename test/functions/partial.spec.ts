@@ -1,6 +1,6 @@
-const { expect } = require('chai')
-const { getType } = require('../dist/util/type-util')
-const { partial } = require('../dist')
+import { expect } from 'chai'
+import { getType } from '../../src/util/type-util'
+import { partial } from '../../src'
 
 const greet = (salutation, title, firstName, lastName) =>
   salutation + ', ' + title + ' ' + firstName + ' ' + lastName + '!'

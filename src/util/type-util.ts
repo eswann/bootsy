@@ -26,12 +26,16 @@ export function getType(input: any) {
 
   if (['true', 'false'].includes(asStr)) return 'Boolean'
   if (!Number.isNaN(Number(asStr))) return 'Number'
-  if (asStr.startsWith('async')) return 'Async'
+  if (asStr.startsWith('async') || asStr.includes('awaiter')) return 'Async'
   if (asStr === '[object Promise]') return 'Promise'
   if (typeOf === 'function') return 'Function'
   if (input instanceof String) return 'String'
 
   return 'Object'
+}
+
+export function isFunction(input: any) {
+  return typeof input === 'function'
 }
 
 export namespace FunctionTypes {

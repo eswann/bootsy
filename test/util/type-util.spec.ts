@@ -1,5 +1,5 @@
-const { expect } = require('chai')
-const { getType } = require('../../dist/util/type-util')
+import { expect } from 'chai'
+import { getType } from '../../src/util/type-util'
 
 describe('Type Util', () => {
   it('should work with simple promise', () => {

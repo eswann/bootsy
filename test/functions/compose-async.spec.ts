@@ -1,6 +1,6 @@
-const { expect } = require('chai')
-const delay = require('delay')
-const { composeAsync } = require('../dist')
+import delay from 'delay'
+import { expect } from 'chai'
+import { composeAsync } from '../../src'
 
 const tryEmptyCompose = async () => {
   try {

@@ -1,13 +1,15 @@
-import { executeAsync } from './util/runner'
+import { executeAsync } from '../util/runner'
+import { Config, ExecuteOptions } from '../config'
 
 /**
  * Runs all the passed args through the map in metrics and error handling,
  * set logging to debug for timers
  * @param fn The function to apply to all passed arguments
  * @param args The args to apply the function to.
+ * @param options Options to apply to execution
  * @return Returns an aggregate promise of the function applied to all passed args, using Promise.all
  */
-export function mapAsync (fn: Function, args: any[]): Promise<any[]> {
+export function mapAsync(fn: Function, args: any[], options?: ExecuteOptions): Promise<any[]> {
   if (!fn || typeof fn !== 'function') {
     throw new Error('map-async requires a function to be passed')
   }
@@ -20,5 +22,6 @@ export function mapAsync (fn: Function, args: any[]): Promise<any[]> {
   if (args.length === 0) {
     return Promise.resolve([])
   }
-  return Promise.all(args.map((arg) => executeAsync(fn, arg)))
+  const execOptions = { ...Config.executeOptions, ...options }
+  return Promise.all(args.map((arg) => executeAsync(execOptions, fn, arg)))
 }

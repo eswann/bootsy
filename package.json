@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc --build",
-    "test": "ts-mocha test/**/*.spec.ts -w --watch-extensions ts",
+    "test": "mocha -r ts-node/register test/**/*.spec.ts",
+    "coverage": "nyc npm run test",
     "lint": "eslint . --ext .ts"
   },
   "repository": {
@@ -25,6 +26,7 @@
   },
   "homepage": "https://github.com/eswann/lambduh#readme",
   "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/chai": "^4.2.15",
     "@types/chai-as-promised": "^7.1.3",
     "@types/mocha": "^8.2.2",
@@ -38,9 +40,10 @@
     "eslint": "^7.22.0",
     "eslint-config-standard": "^16.0.2",
     "mocha": "^8.3.2",
+    "nyc": "^15.1.0",
     "prettier": "^2.2.1",
     "sinon": "^10.0.0",
-    "ts-purify": "^3.0.1",
+    "ts-node": "^9.1.1",
     "typescript": "4.2.3"
   }
 }

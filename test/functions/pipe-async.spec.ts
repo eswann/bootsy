@@ -1,12 +1,11 @@
+import chaiAsPromised from 'chai-as-promised'
+import chai from 'chai'
+import delay from 'delay'
+import { pipeAsync } from '../../src'
+
 const sinon = require('sinon').createSandbox()
-const chai = require('chai')
 const { expect } = chai
-const chaiAsPromised = require('chai-as-promised')
 chai.use(chaiAsPromised)
-
-const delay = require('delay')
-const { pipeAsync } = require('../dist')
-
 const tryEmptyPipe = async () => {
   try {
     await pipeAsync()('barf')

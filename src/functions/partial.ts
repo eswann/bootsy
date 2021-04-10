@@ -1,4 +1,4 @@
-import { FunctionTypes } from './util/type-util'
+import { FunctionTypes } from '../util/type-util'
 import StandardFunction = FunctionTypes.StandardFunction
 
 /**
@@ -8,7 +8,7 @@ import StandardFunction = FunctionTypes.StandardFunction
  * @param args The args to include in the function by default
  * @returns The partial curried function
  */
-export function partial (fn: Function, ...args: any[]): StandardFunction {
+export function partial(fn: Function, ...args: any[]): StandardFunction {
   const len = fn.length
 
   return (...rest: any[]) => {

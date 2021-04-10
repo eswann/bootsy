@@ -1,5 +1,5 @@
-const { expect } = require('chai')
-const { compose } = require('../dist')
+import { expect } from 'chai'
+import { compose } from '../../src'
 
 const testFunc1 = (rootText) => {
   return `${rootText} the cat and the fiddle`

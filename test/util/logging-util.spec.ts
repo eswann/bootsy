@@ -1,7 +1,7 @@
-const { expect } = require('chai')
-const delay = require('delay')
-const { Config, LogLevel } = require('../../dist')
-const { logFunctionStart, logDuration } = require('../../dist/util/logging-util')
+import { expect } from 'chai'
+import delay from 'delay'
+import { Config, LogLevel } from '../../src'
+import { logDuration, logFunctionStart } from '../../src/util/logging-util'
 const sinon = require('sinon').createSandbox()
 
 function testFunc(arg1, arg2) {
@@ -14,12 +14,12 @@ afterEach(function () {
 
 describe('Logging Util', () => {
   it('should return a log duration', async function () {
-    Config.initialize(LogLevel.debug)
+    Config.initialize({ logLevel: LogLevel.debug })
     const loggerSpy = sinon.spy(console, 'debug')
 
-    const startTime = logFunctionStart(testFunc, 'testArg1', 'testArg2')
+    const startTime = logFunctionStart(Config.executeOptions, testFunc, 'testArg1', 'testArg2')
     await delay(10)
-    const duration = logDuration(testFunc, startTime)
+    const duration = logDuration(Config.executeOptions, testFunc, startTime)
 
     expect(duration).to.be.greaterThan(10)
     expect(loggerSpy.calledTwice).to.be.true
@@ -29,12 +29,12 @@ describe('Logging Util', () => {
   })
 
   it('should not return a log duration if not debug', async function () {
-    Config.initialize(LogLevel.info)
+    Config.initialize({ logLevel: LogLevel.info })
     const loggerSpy = sinon.spy(console, 'debug')
 
-    const startTime = logFunctionStart(testFunc, 'testArg1', 'testArg2')
+    const startTime = logFunctionStart(Config.executeOptions, testFunc, 'testArg1', 'testArg2')
     await delay(10)
-    const duration = logDuration(testFunc, startTime)
+    const duration = logDuration(Config.executeOptions, testFunc, startTime)
 
     expect(startTime).to.be.undefined
     expect(duration).to.be.undefined

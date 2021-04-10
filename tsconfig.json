@@ -5,7 +5,8 @@
     "target": "ES2015",
     "sourceMap": true,
     "sourceRoot": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "esModuleInterop": true
   },
   "include": ["src/**/*"],
 }

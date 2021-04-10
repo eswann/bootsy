@@ -1,32 +1,39 @@
 import { LogLevel } from './log-level'
-import { Logger } from './logger'
 import { isString } from '../util/string-util'
 import { ExecuteOptions } from './execute-options'
 
 export class Config {
-  public static defaultExecuteOptions: ExecuteOptions = {
+  public static executeOptions: ExecuteOptions = {
     autoMerge: true,
     logger: console,
     logLevel: LogLevel.info,
   }
 
-  public static initialize(defaultExecuteOptions: ExecuteOptions) {
-    if (defaultExecuteOptions) {
-      const { autoMerge, logger, logLevel } = defaultExecuteOptions
+  public static reset() {
+    this.executeOptions = {
+      autoMerge: true,
+      logger: console,
+      logLevel: LogLevel.info,
+    }
+  }
+
+  public static initialize(executeOptions: ExecuteOptions) {
+    if (executeOptions) {
+      const { autoMerge, logger, logLevel } = executeOptions
       if (autoMerge != null) {
-        this.defaultExecuteOptions.autoMerge = autoMerge
+        this.executeOptions.autoMerge = autoMerge
       }
       if (logger != null) {
-        this.defaultExecuteOptions.logger = logger
+        this.executeOptions.logger = logger
       }
 
       if (logLevel != null) {
         if (isString(logLevel)) {
-          this.defaultExecuteOptions.logLevel = LogLevel[logLevel]
+          this.executeOptions.logLevel = LogLevel[logLevel]
         } else if (logLevel in LogLevel) {
-          this.defaultExecuteOptions.logLevel = logLevel as LogLevel
+          this.executeOptions.logLevel = logLevel as LogLevel
         }
-        if (!this.defaultExecuteOptions.logLevel) {
+        if (!this.executeOptions.logLevel) {
           throw new Error(`Provided Lambduh log level is not valid: ${logLevel}`)
         }
       }
