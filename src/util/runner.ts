@@ -1,6 +1,38 @@
 import { logDuration, logFunctionStart } from './logging-util'
 import { Config, ExecuteOptions } from '..'
-import { isFunction } from './type-util'
+import { isPlainObject, isFunction } from './type-util'
+
+/**
+ * Executes synchronous functions using the provided arguments
+ * @param options The execute options
+ * @param fns The functions to execute
+ */
+export function executeFunctions(options: ExecuteOptions, fns: Function[]) {
+  return (...args: any[]) => {
+    let result = execute(options, fns[0], args)
+    for (let i = 1; i < fns.length; i++) {
+      args = mergeResult(options, args, result)
+      result = execute(options, fns[i], args)
+    }
+    return result
+  }
+}
+
+/**
+ * Executes synchronous functions using the provided arguments
+ * @param options The execute options
+ * @param fns The functions to execute
+ */
+export function executeFunctionsAsync(options: ExecuteOptions, fns: Function[]) {
+  return async (...args: any[]) => {
+    let result = await executeAsync(options, fns[0], args)
+    for (let i = 1; i < fns.length; i++) {
+      args = mergeResult(options, args, result)
+      result = await executeAsync(options, fns[i], args)
+    }
+    return result
+  }
+}
 
 /**
  * Executes the provided function asynchronously.
@@ -16,7 +48,7 @@ export async function executeAsync(
   ...args: any[]
 ): Promise<any> {
   validateFunction(fn)
-  let startTime = logFunctionStart(options, fn, ...args)
+  let startTime = logFunctionStart(options, fn, args)
   try {
     const result = fn(...args)
     if (result && typeof result.then === 'function') {
@@ -41,7 +73,7 @@ export async function executeAsync(
  */
 export function execute(options: ExecuteOptions, fn: Function, ...args: any[]): any {
   validateFunction(fn)
-  let startTime = logFunctionStart(options, fn, ...args)
+  let startTime = logFunctionStart(options, fn, args)
   try {
     return fn(...args)
   } catch (err) {
@@ -64,32 +96,36 @@ export function handleError(options: ExecuteOptions, fn: Function, err: Error) {
   throw err
 }
 
+export function mergeResult(options: ExecuteOptions, args: any[], result: any) {
+  if (options.autoMerge && args?.length === 1 && result) {
+    if (isPlainObject(args[0]) && isPlainObject(result)) {
+      return { ...args[0], ...result }
+    }
+  }
+  return result
+}
+
 /**
  * Parses arguments passed to a function to determine if the first element is an option or a function
  * @param opName Operation that is calling this method (ex: pipe/compose)
- * @param fns Additional functions to pipe
+ * @param functionOrOptions The first function or execute options
+ * @param fns Additional functions
  * @returns parsed options and functions
  */
-export function parseFunctionsAndOptions(opName: string, fns: Array<Function | ExecuteOptions>) {
-  if (!fns || fns.length === 0) {
-    throw new Error(`${opName} requires at least one function`)
-  }
-
+export function parseFunctionsAndOptions(
+  opName: string,
+  functionOrOptions: Function | ExecuteOptions,
+  fns?: Array<Function>
+): { options: ExecuteOptions; execFns: Function[] } {
   let options, execFns
-  const first = fns[0]
-  if (isFunction(first)) {
-    execFns = fns
+  if (isFunction(functionOrOptions)) {
+    execFns = [functionOrOptions, ...fns]
   } else {
-    options = first
-    execFns = fns.slice(1)
+    if (!fns || !fns.length) {
+      throw new Error(`${opName} requires at least one function`)
+    }
+    options = functionOrOptions
+    execFns = fns
   }
-
-  if (execFns.length === 0) {
-    throw new Error(`${opName} requires at least one function`)
-  }
-
-  return {
-    options: { ...Config.executeOptions, ...options },
-    execFns,
-  }
+  return { options: { ...Config.executeOptions, ...options }, execFns }
 }

@@ -8,6 +8,7 @@ const { expect } = chai
 chai.use(chaiAsPromised)
 const tryEmptyPipe = async () => {
   try {
+    // @ts-ignore
     await pipeAsync()('barf')
   } catch (err) {
     return err

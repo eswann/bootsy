@@ -11,6 +11,7 @@ const testFunc2 = (rootText) => {
 
 describe('compose', () => {
   it('Throws if no functions are passed', () => {
+    // @ts-ignore
     expect(() => compose()).to.throw(/requires at least one function/)
   })
 

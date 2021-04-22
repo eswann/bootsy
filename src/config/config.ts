@@ -1,5 +1,5 @@
 import { LogLevel } from './log-level'
-import { isString } from '../util/string-util'
+import { isString } from '../util/type-util'
 import { ExecuteOptions } from './execute-options'
 
 export class Config {
@@ -12,6 +12,8 @@ export class Config {
   public static reset() {
     this.executeOptions = {
       autoMerge: true,
+      autoMergeArrays: false,
+      dedupeMergedArrays: false,
       logger: console,
       logLevel: LogLevel.info,
     }

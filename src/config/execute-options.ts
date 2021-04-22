@@ -1,8 +1,10 @@
-import { LogLevel } from "./log-level";
-import { Logger } from "./logger";
+import { LogLevel } from './log-level'
+import { Logger } from './logger'
 
 export interface ExecuteOptions {
-  autoMerge?: boolean;
-  logLevel?: LogLevel | string | number;
-  logger?: Logger;
+  autoMerge?: boolean
+  autoMergeArrays?: boolean
+  dedupeMergedArrays?: boolean
+  logLevel?: LogLevel | string | number
+  logger?: Logger
 }

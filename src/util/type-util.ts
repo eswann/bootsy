@@ -1,37 +1,34 @@
+const toString = Object.prototype.toString
+
 /**
- * Tells us about the current type passed in
- * Taken from rambda (not ramda)
- * @param input An input to be interrogated
- * @returns A string representation of the type of the input
+ * Determines if the passed function is async
+ * @param fn
  */
-export function getType(input: any) {
-  const typeOf = typeof input
-  const asStr = input && input.toString ? input.toString() : ''
+export function isAsync(fn: Function) {
+  const asStr = fn?.toString ? fn.toString() : ''
+  return asStr.startsWith('async') || asStr.includes('awaiter') || asStr === '[object Promise]'
+}
 
-  if (input === null) {
-    return 'Null'
-  } else if (input === undefined) {
-    return 'Undefined'
-  } else if (typeOf === 'boolean') {
-    return 'Boolean'
-  } else if (typeOf === 'number') {
-    return Number.isNaN(input) ? 'NaN' : 'Number'
-  } else if (typeOf === 'string') {
-    return 'String'
-  } else if (Array.isArray(input)) {
-    return 'Array'
-  } else if (input instanceof RegExp) {
-    return 'RegExp'
+export function isPlainObject(value) {
+  if (!isObjectLike(value) || getTag(value) != '[object Object]') {
+    return false
   }
+  if (Object.getPrototypeOf(value) === null) {
+    return true
+  }
+  let proto = value
+  while (Object.getPrototypeOf(proto) !== null) {
+    proto = Object.getPrototypeOf(proto)
+  }
+  return Object.getPrototypeOf(value) === proto
+}
 
-  if (['true', 'false'].includes(asStr)) return 'Boolean'
-  if (!Number.isNaN(Number(asStr))) return 'Number'
-  if (asStr.startsWith('async') || asStr.includes('awaiter')) return 'Async'
-  if (asStr === '[object Promise]') return 'Promise'
-  if (typeOf === 'function') return 'Function'
-  if (input instanceof String) return 'String'
-
-  return 'Object'
+/**
+ * Determines if the passed value is a string
+ * @param value Value to evaluate for stringiness
+ */
+export function isString(value: any) {
+  return typeof value === 'string' || value instanceof String
 }
 
 export function isFunction(input: any) {
@@ -42,4 +39,28 @@ export namespace FunctionTypes {
   export type StandardFunction = (...args: any[]) => any
   export type ObjectFunction = (arg: Object) => Promise<any>
   export type AsyncFunction = (...args: any[]) => Promise<any>
+}
+
+/**
+ * Gets the `toStringTag` of `value`.
+ *
+ * @private
+ * @param value The value to query.
+ * @returns Returns the `toStringTag`.
+ */
+function getTag(value: any): string {
+  if (value == null) {
+    return value === undefined ? '[object Undefined]' : '[object Null]'
+  }
+  return toString.call(value)
+}
+
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ * @param value The value to check.
+ * @returns Returns `true` if `value` is object-like, else `false`.
+ */
+function isObjectLike(value: any) {
+  return typeof value === 'object' && value !== null
 }

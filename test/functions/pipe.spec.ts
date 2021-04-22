@@ -12,6 +12,7 @@ const testFunc2 = (rootText) => {
 
 describe('pipe', () => {
   it('Throws if no functions are passed', () => {
+    // @ts-ignore
     expect(() => pipe()).to.throw(/requires at least one function/)
   })
 

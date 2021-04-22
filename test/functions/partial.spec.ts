@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { getType } from '../../src/util/type-util'
+import { getType } from '../test-helpers/type-helper'
 import { partial } from '../../src'
 
 const greet = (salutation, title, firstName, lastName) =>

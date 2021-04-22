@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { getType } from '../../src/util/type-util'
+import { getType } from '../test-helpers/type-helper'
 import { curryMerge } from '../../src'
 
 describe('curryMerge', () => {

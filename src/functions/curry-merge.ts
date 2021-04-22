@@ -1,4 +1,4 @@
-import { FunctionTypes, getType } from '../util/type-util'
+import { FunctionTypes, isAsync } from '../util/type-util'
 import ObjectFunction = FunctionTypes.ObjectFunction
 
 /**
@@ -10,14 +10,13 @@ import ObjectFunction = FunctionTypes.ObjectFunction
  */
 export function curryMerge(fn: Function, args: Object = {}): ObjectFunction {
   return (rest) => {
-    if (getType(fn) === 'Async' || getType(fn) === 'Promise') {
+    if (isAsync(fn)) {
       return new Promise((resolve, reject) => {
         fn({ ...rest, ...args })
           .then(resolve)
           .catch(reject)
       })
     }
-
     return fn({ ...rest, ...args })
   }
 }

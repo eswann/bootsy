@@ -4,6 +4,6 @@ export enum LogLevel {
   warn,
   info,
   http,
-  verbose = 4,
+  verbose,
   debug,
 }

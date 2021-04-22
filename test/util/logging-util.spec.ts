@@ -17,7 +17,7 @@ describe('Logging Util', () => {
     Config.initialize({ logLevel: LogLevel.debug })
     const loggerSpy = sinon.spy(console, 'debug')
 
-    const startTime = logFunctionStart(Config.executeOptions, testFunc, 'testArg1', 'testArg2')
+    const startTime = logFunctionStart(Config.executeOptions, testFunc, ['testArg1', 'testArg2'])
     await delay(10)
     const duration = logDuration(Config.executeOptions, testFunc, startTime)
 
@@ -32,7 +32,7 @@ describe('Logging Util', () => {
     Config.initialize({ logLevel: LogLevel.info })
     const loggerSpy = sinon.spy(console, 'debug')
 
-    const startTime = logFunctionStart(Config.executeOptions, testFunc, 'testArg1', 'testArg2')
+    const startTime = logFunctionStart(Config.executeOptions, testFunc, ['testArg1', 'testArg2'])
     await delay(10)
     const duration = logDuration(Config.executeOptions, testFunc, startTime)
 

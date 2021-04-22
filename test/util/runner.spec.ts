@@ -80,8 +80,8 @@ describe('runner', () => {
   })
 
   describe('ParseFunctionsAndOptions', function () {
-    it('Throws on empty function array', () => {
-      expect(() => runner.parseFunctionsAndOptions('test', [])).to.throw
+    it('Throws on no functions provided', () => {
+      expect(() => runner.parseFunctionsAndOptions('test', null)).to.throw
     })
 
     it('Throws if only options provided', () => {
@@ -90,7 +90,7 @@ describe('runner', () => {
         logLevel: LogLevel.debug,
       }
 
-      expect(() => runner.parseFunctionsAndOptions('test', [options])).to.throw(
+      expect(() => runner.parseFunctionsAndOptions('test', options)).to.throw(
         'test requires at least one function'
       )
     })
@@ -101,7 +101,7 @@ describe('runner', () => {
         logLevel: LogLevel.debug,
       }
       const testFunction = () => {}
-      const result = runner.parseFunctionsAndOptions('test', [options, testFunction])
+      const result = runner.parseFunctionsAndOptions('test', options, [testFunction])
 
       expect(result.options.logLevel).to.equal(LogLevel.debug)
       expect(result.options.autoMerge).to.equal(false)

@@ -1,5 +1,5 @@
-import { ExecuteOptions, LogLevel } from "..";
-import { performance } from "perf_hooks";
+import { ExecuteOptions, LogLevel } from '..'
+import { performance } from 'perf_hooks'
 
 /**
  * Logs the start time of a function
@@ -7,14 +7,10 @@ import { performance } from "perf_hooks";
  * @param fn The function
  * @param args
  */
-export function logFunctionStart(
-  options: ExecuteOptions,
-  fn: Function,
-  ...args: any[]
-) {
+export function logFunctionStart(options: ExecuteOptions, fn: Function, args: any[]) {
   if (options.logLevel >= LogLevel.debug) {
-    options.logger.debug(`Calling function ${fn.name} with args`, { ...args });
-    return performance.now();
+    options.logger.debug(`Calling function ${fn.name} with args`, { ...args })
+    return performance.now()
   }
 }
 
@@ -24,16 +20,10 @@ export function logFunctionStart(
  * @param fn The function
  * @param startTime Time the function execution started
  */
-export function logDuration(
-  options: ExecuteOptions,
-  fn: Function,
-  startTime: number
-) {
+export function logDuration(options: ExecuteOptions, fn: Function, startTime: number) {
   if (startTime) {
-    const duration = performance.now() - startTime;
-    options.logger.debug(
-      `Stopwatch - Function: ${fn.name}, Duration: ${duration} ms`
-    );
-    return duration;
+    const duration = performance.now() - startTime
+    options.logger.debug(`Stopwatch - Function: ${fn.name}, Duration: ${duration} ms`)
+    return duration
   }
 }

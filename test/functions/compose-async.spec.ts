@@ -4,6 +4,7 @@ import { composeAsync } from '../../src'
 
 const tryEmptyCompose = async () => {
   try {
+    // @ts-ignore
     await composeAsync()('barf')
   } catch (err) {
     return err
