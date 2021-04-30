@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
-    "allowJs": true,
+    "allowJs": false,
     "module": "commonjs",
     "target": "ES2015",
     "sourceMap": true,
     "sourceRoot": "src",
     "outDir": "dist",
-    "esModuleInterop": true
+    "esModuleInterop": true,
   },
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*.ts"
+  ]
 }

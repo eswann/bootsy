@@ -108,16 +108,4 @@ describe('runner', () => {
       expect(result.execFns[0]).to.equal(testFunction)
     })
   })
-
-  describe('ValidateFunction', function () {
-    it('Should err if not function', () => {
-      // @ts-ignore
-      expect(() => runner.validateFunction('test')).to.throw
-    })
-
-    it('Should not err if function', () => {
-      // @ts-ignore
-      expect(() => runner.validateFunction(() => {})).to.not.throw
-    })
-  })
 })

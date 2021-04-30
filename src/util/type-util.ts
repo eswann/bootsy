@@ -2,13 +2,17 @@ const toString = Object.prototype.toString
 
 /**
  * Determines if the passed function is async
- * @param fn
+ * @param fn The function to assess
  */
 export function isAsync(fn: Function) {
   const asStr = fn?.toString ? fn.toString() : ''
   return asStr.startsWith('async') || asStr.includes('awaiter') || asStr === '[object Promise]'
 }
 
+/**
+ * Determines if the provided object is a POJO
+ * @param value The object to assess
+ */
 export function isPlainObject(value) {
   if (!isObjectLike(value) || getTag(value) != '[object Object]') {
     return false
@@ -31,6 +35,10 @@ export function isString(value: any) {
   return typeof value === 'string' || value instanceof String
 }
 
+/**
+ * Determines if the passed item is a function
+ * @param input The item to assess
+ */
 export function isFunction(input: any) {
   return typeof input === 'function'
 }

@@ -14,7 +14,7 @@ describe('config', () => {
 
   it('should throw with bad string', () => {
     expect(() => Config.initialize({ logLevel: 'foo' })).to.throw(
-      'Lambduh log level is not valid: foo'
+      'Bootsy log level is not valid: foo'
     )
   })
 

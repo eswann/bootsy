@@ -7,13 +7,12 @@ export class Config {
     autoMerge: true,
     logger: console,
     logLevel: LogLevel.info,
+    logTimings: false,
   }
 
   public static reset() {
     this.executeOptions = {
       autoMerge: true,
-      autoMergeArrays: false,
-      dedupeMergedArrays: false,
       logger: console,
       logLevel: LogLevel.info,
     }
@@ -21,7 +20,7 @@ export class Config {
 
   public static initialize(executeOptions: ExecuteOptions) {
     if (executeOptions) {
-      const { autoMerge, logger, logLevel } = executeOptions
+      const { autoMerge, logger, logLevel, logTimings } = executeOptions
       if (autoMerge != null) {
         this.executeOptions.autoMerge = autoMerge
       }
@@ -36,8 +35,12 @@ export class Config {
           this.executeOptions.logLevel = logLevel as LogLevel
         }
         if (!this.executeOptions.logLevel) {
-          throw new Error(`Provided Lambduh log level is not valid: ${logLevel}`)
+          throw new Error(`Bootsy: Provided Bootsy log level is not valid: ${logLevel}`)
         }
+      }
+
+      if (logTimings != null) {
+        this.executeOptions.logTimings = logTimings
       }
     }
   }

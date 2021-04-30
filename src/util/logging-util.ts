@@ -8,7 +8,7 @@ import { performance } from 'perf_hooks'
  * @param args
  */
 export function logFunctionStart(options: ExecuteOptions, fn: Function, args: any[]) {
-  if (options.logLevel >= LogLevel.debug) {
+  if (options.logTimings || options.logLevel >= LogLevel.debug) {
     options.logger.debug(`Calling function ${fn.name} with args`, { ...args })
     return performance.now()
   }

@@ -1,5 +1,5 @@
-import { executeAsync } from '../util/runner'
 import { Config, ExecuteOptions } from '../config'
+import { executeAsync } from '../util/runner'
 
 /**
  * Runs all the passed args through the map in metrics and error handling,
@@ -11,13 +11,13 @@ import { Config, ExecuteOptions } from '../config'
  */
 export function mapAsync(fn: Function, args: any[], options?: ExecuteOptions): Promise<any[]> {
   if (!fn || typeof fn !== 'function') {
-    throw new Error('map-async requires a function to be passed')
+    throw new Error('Bootsy: map-async requires a function to be passed')
   }
   if (!args) {
     return Promise.resolve([])
   }
   if (!Array.isArray(args)) {
-    throw new Error('map-async requires args to be passed as an array')
+    throw new Error('Bootsy: map-async requires args to be passed as an array')
   }
   if (args.length === 0) {
     return Promise.resolve([])
