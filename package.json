@@ -1,8 +1,12 @@
 {
   "name": "bootsy",
   "version": "1.0.0",
-  "description": "A functional-lite library for all of us",
-  "main": "index.js",
+  "description": "A zero dependency functional-lite library for all of us.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc --build",
     "test": "mocha -r ts-node/register test/**/*.spec.ts",
