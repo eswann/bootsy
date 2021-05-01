@@ -10,7 +10,13 @@ import StandardFunction = FunctionTypes.StandardFunction
  * @param args Required for the currying recursion (don't use this)
  * @returns The curried function
  */
-export function curry(fn: Function, args: any[] = []): StandardFunction {
-  return (..._args: any[]) =>
-    ((rest) => (rest.length >= fn.length ? fn(...rest) : curry(fn, rest)))([...args, ..._args])
+export function curry(fn: Function, ...args: any[]): StandardFunction {
+  const len = fn.length
+
+  return (...rest: any[]) => {
+    if (args.length + rest.length >= len) {
+      return fn(...args, ...rest)
+    }
+    return curry(fn, ...[...args, ...rest])
+  }
 }
