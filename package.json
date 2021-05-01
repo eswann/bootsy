@@ -1,6 +1,6 @@
 {
   "name": "bootsy",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A zero dependency functional-lite library for all of us.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

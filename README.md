@@ -20,6 +20,7 @@ We encourage piping and composition as a way to organize code, even code that ne
 * Built-in logging
 * Built-in timing for each piped function
 * Auto-merge of input and output arguments
+* Comprehensive test coverage
 
 ### Typescript
 Typescript combined with JSDoc gives us great editor support!
@@ -169,6 +170,25 @@ const options = {
 const pipedResult = await pipeAsync(options,  func1, func2)({text1: 'Super', text2: 'Bad'})
 ```
 
+### Composition functions
+Composition functions are demonstrated in the examples above, these are:
+Pipe, PipeAsync, Compose, ComposeAsync
+Pipe executes the provided functions from left to right, Compose from right to left.
+The results of each function are passed to the next, see Auto-merge for more information on automatic parameter
+inference in more complex composition scenarios.
+```javascript
+const testFunc1 = (myArg) => {
+  return 'Cool ' + myArg
+}
+const testFunc2 = async (myArg) => {
+  return `${myArg}: One nation under a groove`
+}
+// Pipe it!!!
+const pipedResult = await pipe(testFunc1, testFunc2)('Give up the funk!')
+// Compose it!!!
+const composedResult = await compose(testFunc2, testFunc1)('funk the up Give!')
+```
+
 ### Other Functions
 The following functions are included to help with functionality needed in common functional scenarios, but combine us
 with any functional library out there! We play just fine with Ramda, Lodash, etc...
@@ -211,3 +231,5 @@ Over Async applies the same args to an array of functions and awaits all of them
 ```javascript
   const [result1, result2, result3] = await overAsync(testAsyncFunc1, testAsyncFunc2, testAsyncFunc3)('Bootsy', 'Catfish')
 ```
+
+### More Examples are available in the tests!
