@@ -48,7 +48,7 @@ const composedResult = await composeAsync(testAsyncFunc2, testAsyncFunc1)('funk 
 
 ### Built-in Logging and Timings
 By default, Bootsy always logs errors encountered while running each function (and then rethrows the error).
-Logging is set to the info level by default, but this can be adjusted using configuration setup
+Logging is set to **info** level by default, but this can be adjusted using configuration setup
 at a global or function level, and you can provide your logger of choice! The default is the console.
 
 Bootsy will log each function call with timings at the **debug** level or by explicitly setting the **logTimings**
