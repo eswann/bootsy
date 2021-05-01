@@ -3,7 +3,7 @@ import { isFunction, isPlainObject } from './type-util'
 
 export function validateFunction(fn: Function) {
   if (!fn || !isFunction(fn)) {
-    throw new Error('Bootsy: function to execute is not a function.')
+    throw new Error('Bootsy: Function to execute is not a function')
   }
 }
 
