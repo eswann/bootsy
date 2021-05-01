@@ -4,12 +4,12 @@
 
 Funky fresh (and easy) functional-lite!
 
-###Why?
-Bootsy was created to make functional composition as easy as possible. Sure there are Ramda, Lodash, and others,
+### Why?
+Bootsy was created to make functional composition as pragmatic as possible. Sure there's Ramda, Lodash, and others,
 but the idea behind Bootsy was to make everyday functional tasks easier, and provide additional features
 that we've found helpful in enterprise production apps.
 
-##Features
+## Features
 ...that set us apart
 * Typescript gives us excellent intellisense and type checking
 * Async pipe/composition
@@ -17,11 +17,11 @@ that we've found helpful in enterprise production apps.
 * Built-in timing for each piped function
 * Auto-merge of input and output arguments
 
-###Typescript
-Typescript gives us great editor support!
+### Typescript
+Typescript combined with JSDoc gives us great editor support!
+<img src="https://github.com/eswann/bootsy/blob/main/readme-assets/editor-support-1.png?raw=true"></img>
 
-
-###Async Support
+### Async Support
 For pragmatic functional-lite, the ability to pipe async methods is essential, for this reason we
 support pipeAsync and composeAsync
 
@@ -41,13 +41,13 @@ const pipedResult = await pipeAsync(testAsyncFunc1, testAsyncFunc2)('We got tha 
 const composedResult = await composeAsync(testAsyncFunc2, testAsyncFunc1)('funk tha got We!')
 ```
 
-###Built-in Logging
+### Built-in Logging
 By default, Bootsy always logs any errors encountered while running each function (and then rethrows the error).
 Bootsy will log each function call with timings at the **debug** level.
 Logging is set to the info level by default, but this can be adjusted using the configuration setup
 at a global or function level, and you can provide the logger of your choice! The default is the console.
 
-#####Options (including logging) can be set up globally
+##### Options (including logging) can be set up globally
 ```javascript
 const myCustomLogger = {
   trace: function (message, optionalParams) {},
@@ -60,7 +60,7 @@ const myCustomLogger = {
 Config.initialize({logLevel: Loglevel.debug, logger: myCustomLogger})
 ```
 
-#####Options (including logging) can be set up per composed functions call (pipe/compose/etc...)
+##### Options (including logging) can be set up per composed functions call (pipe/compose/etc...)
 ```javascript
 // Alternately any call to one of our composition functions can accept options as the fir
 const myCustomLogger = {
