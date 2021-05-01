@@ -102,7 +102,7 @@ const pipedResult = await pipeAsync(options,  testAsyncFunc1, testAsyncFunc2)('B
 ```
 
 ### Auto-merge
-So what is auto-merge? It's actually my favorite features of this library, but it's a little hard to explain.
+So what is auto-merge? It's actually my favorite feature of Bootsy, but it's a little hard to explain.
 In JavaScript, it's very common to pass all function parameters in a single object argument, as in the example below.
 Notice that text1 and text2 below are actually properties of one argument, not separate arguments. This pattern is
 well-supported by editors/JSDoc etc...
