@@ -6,4 +6,5 @@ export interface ExecuteOptions {
   logger?: Logger
   logLevel?: LogLevel | string | number
   logTimings?: boolean
+  curryMerge?: boolean
 }

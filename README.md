@@ -116,16 +116,16 @@ const someFunc = ({ text1, text2 }) => {
 }
 ```
 
-When piping functions like these, we often find ourselves passing arguments through functions that aren't even used,
-so that they can be conveyed to another function further down the pipe. Yes there are ways around this, but our goal is
-to make piping functions both clean and easy.
+When piping functions like these, we often find ourselves passing unused arguments into functions
+so that they can be conveyed to another function further down the pipe.
+Yes there are ways around this, but our goal is to make piping functions both clean and easy.
 ```javascript
 const func1 = ({ text1, text2 }) => {
   const text3 = text1 + text2
   return {text1, text3}
 }
 // ---> *** The problem ***
-// This function do anything with text3, but func3 needs it!
+// This function doesn't do anything with text3, but func3 needs it!
 // So I have to pass it through, but this is just bad in so many ways!!!
 const func2 = ({text1, text3}) => {
   const text4 = doSomthing(text1)
@@ -160,7 +160,7 @@ const pipedResult = await pipe(func1,  func2,  func3)({text1: 'Soul', text2: 'Po
 
 #### Configuring Auto-merge
 ```javascript
-// Global setup of logging timings
+// Global setup of autoMerge
 Config.initialize({autoMerge: false})
 // Or pass them into any pipe/compose/etc...
 const options = {
@@ -172,7 +172,8 @@ const pipedResult = await pipeAsync(options,  func1, func2)({text1: 'Super', tex
 
 ### Composition functions
 Composition functions are demonstrated in the examples above, these are:
-Pipe, PipeAsync, Compose, ComposeAsync
+Pipe, PipeAsync, Compose, and ComposeAsync.
+
 Pipe executes the provided functions from left to right, Compose from right to left.
 The results of each function are passed to the next, see Auto-merge for more information on automatic parameter
 inference in more complex composition scenarios.
@@ -194,7 +195,11 @@ The following functions are included to help with functionality needed in common
 with any functional library out there! We play just fine with Ramda, Lodash, etc...
 
 #### Curry
-Creates a curried function from a "regular" function. Curried functions return a new function until all expected
+Bootsy has the tastiest curry! Why?
+Curry automatically detects and performs a [Curry Merge](#curry-merge) if the function matches the Curry Merge pattern,
+so you can just curry all the things!
+
+Curried functions return a new function until all expected
 arguments are provided. In our case, "curry" and "partial" are the same, meaning curry can also accept initial parameters
 as part of the call to curry.
 ```javascript
@@ -205,6 +210,9 @@ as part of the call to curry.
   const partiallyFulfilledCurriedFunction = curriedFunction(2, 3)
   // Calling it at any time with the remaining arguments causes the function to evaluate
   const result = partiallyFulfilledCurriedFunction(4)
+
+  // Global curry merge detection, default is true
+  Config.initialize({curryMerge: true})
 ```
 
 #### Curry Merge

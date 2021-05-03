@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { curry } from '../../src'
+import { curry, curryMerge } from '../../src'
 import { getType } from '../test-helpers/type-helper'
 
 const greet = (salutation, title, firstName, lastName) =>
@@ -13,6 +13,14 @@ describe('curry', () => {
     const g = f(3)
 
     expect(g(4)).to.equal(10)
+  })
+
+  it('should curry a function with a single string', () => {
+    const returnAString = (a) => a
+    const curriedReturnAString = curry(returnAString)
+    const result = curriedReturnAString('test1')
+
+    expect(result).to.equal('test1')
   })
 
   it('should work when called with more arguments', () => {
@@ -66,5 +74,60 @@ describe('curry', () => {
     const sayHelloToMs = curry(sayHello, 'Ms.')
 
     expect(sayHelloToMs('Jane', 'Jones')).to.equal('Hello, Ms. Jane Jones!')
+  })
+
+  describe('curryMerge called via curry', () => {
+    it('should create and execute a merged partial function', () => {
+      const fn = ({ a, b, c }) => a + b + c
+      const curried = curry(fn, { a: 1 })
+
+      expect(getType(curried)).to.equal('Function')
+      expect(
+        curried({
+          b: 2,
+          c: 3,
+        })
+      ).to.equal(6)
+    })
+
+    it('should work with promise', (done) => {
+      const delay = ({ ms, x }) =>
+        new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(x * 2)
+          }, ms)
+        })
+
+      const curried = curry(delay, { ms: 200 })
+
+      curried({ x: 3 }).then(() => {
+        expect(getType(curried)).to.equal('Function')
+        done()
+      })
+    })
+
+    it('should work with async', async () => {
+      const delay = (ms) =>
+        new Promise<void>((resolve) => {
+          setTimeout(() => {
+            resolve()
+          }, ms)
+        })
+
+      const fn = async ({ a, b, c }) => {
+        await delay(100)
+
+        return a + b + c
+      }
+
+      const curried = curry(fn, { a: 1 })
+
+      const result = await curried({
+        b: 2,
+        c: 3,
+      })
+
+      expect(result).to.equal(6)
+    })
   })
 })

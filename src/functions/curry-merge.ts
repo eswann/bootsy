@@ -1,4 +1,4 @@
-import { FunctionTypes, isAsync } from '../util/type-util'
+import { FunctionTypes, isAsync, isPlainObject } from '../util/type-util'
 import ObjectFunction = FunctionTypes.ObjectFunction
 
 /**
@@ -6,17 +6,21 @@ import ObjectFunction = FunctionTypes.ObjectFunction
  * This is used when we use parameter destructuring rather than a parameter list
  * Taken from rambda partialCurry (not ramda)
  * @param fn The function to call
- * @param args The partial arguments provided
+ * @param arg The partial arguments provided
  */
-export function curryMerge(fn: Function, args: Object = {}): ObjectFunction {
+export function curryMerge(fn: Function, arg: Object = {}): ObjectFunction {
+  if (!isPlainObject(arg)) {
+    return fn(arg)
+  }
+
   return (rest) => {
     if (isAsync(fn)) {
       return new Promise((resolve, reject) => {
-        fn({ ...rest, ...args })
+        fn({ ...rest, ...arg })
           .then(resolve)
           .catch(reject)
       })
     }
-    return fn({ ...rest, ...args })
+    return fn({ ...rest, ...arg })
   }
 }

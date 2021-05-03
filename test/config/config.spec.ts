@@ -55,4 +55,15 @@ describe('config', () => {
     Config.initialize({})
     expect(Config.executeOptions.autoMerge).to.equal(true)
   })
+
+  it('should initialize with curryMerge', () => {
+    Config.initialize({ curryMerge: false, logLevel: LogLevel.debug })
+    expect(Config.executeOptions.curryMerge).to.equal(false)
+  })
+
+  it('should initialize with curryMerge true by default', () => {
+    Config.reset()
+    Config.initialize({})
+    expect(Config.executeOptions.curryMerge).to.equal(true)
+  })
 })

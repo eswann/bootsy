@@ -8,6 +8,7 @@ export class Config {
     logger: console,
     logLevel: LogLevel.info,
     logTimings: false,
+    curryMerge: true,
   }
 
   public static reset() {
@@ -15,14 +16,19 @@ export class Config {
       autoMerge: true,
       logger: console,
       logLevel: LogLevel.info,
+      logTimings: false,
+      curryMerge: true,
     }
   }
 
   public static initialize(executeOptions: ExecuteOptions) {
     if (executeOptions) {
-      const { autoMerge, logger, logLevel, logTimings } = executeOptions
+      const { autoMerge, curryMerge, logger, logLevel, logTimings } = executeOptions
       if (autoMerge != null) {
         this.executeOptions.autoMerge = autoMerge
+      }
+      if (curryMerge != null) {
+        this.executeOptions.curryMerge = curryMerge
       }
       if (logger != null) {
         this.executeOptions.logger = logger
