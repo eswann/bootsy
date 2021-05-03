@@ -15,11 +15,12 @@ We encourage piping and composition as a way to organize code, even code that ne
 
 ## Features
 ...that set us apart
-* Typescript gives us excellent intellisense and type checking
-* Async pipe/composition
-* Built-in logging
-* Built-in timing for each piped function
-* Auto-merge of input and output arguments
+* [Typescript gives us excellent intellisense and type checking](#typescript)
+* [Async pipe/composition](#async-support)
+* [Built-in logging](#built-in-logging-and-timings)
+* [Built-in timing for each piped function](#built-in-logging-and-timings)
+* [Auto-merge of input and output arguments](#auto-merge)
+* [Curry argument detection with "Curry Merge"](#curry)
 * Comprehensive test coverage
 
 ### Typescript
@@ -175,8 +176,8 @@ Composition functions are demonstrated in the examples above, these are:
 Pipe, PipeAsync, Compose, and ComposeAsync.
 
 Pipe executes the provided functions from left to right, Compose from right to left.
-The results of each function are passed to the next, see Auto-merge for more information on automatic parameter
-inference in more complex composition scenarios.
+The results of each function are passed to the next, see [Auto-merge](#auto-merge) for more information
+on automatic parameter inference in more complex composition scenarios.
 ```javascript
 const testFunc1 = (myArg) => {
   return 'Cool ' + myArg
@@ -239,5 +240,7 @@ Over Async applies the same args to an array of functions and awaits all of them
 ```javascript
   const [result1, result2, result3] = await overAsync(testAsyncFunc1, testAsyncFunc2, testAsyncFunc3)('Bootsy', 'Catfish')
 ```
+
+#### If there is a support function that you believe should come out-of-the-box, shoot us a line and let us know!
 
 ### More Examples are available in the tests!
