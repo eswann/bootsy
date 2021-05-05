@@ -45,7 +45,7 @@ export function isFunction(input: any) {
 
 export namespace FunctionTypes {
   export type StandardFunction = (...args: any[]) => any
-  export type ObjectFunction = (arg: Object) => Promise<any>
+  export type ObjectFunction = (arg?: Object) => any
   export type AsyncFunction = (...args: any[]) => Promise<any>
 }
 

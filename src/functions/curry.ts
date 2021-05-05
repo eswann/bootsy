@@ -10,20 +10,24 @@ import { curryMerge } from './curry-merge'
  * Taken from rambda (not ramda)
  * @param fn The function to transform to a curried function
  * @param args Required for the currying recursion (don't use this)
- * @returns The curried function
+ * @returns The curried function or a result if all arguments are fulfilled
  */
 export function curry(fn: Function, ...args: any[]): StandardFunction {
   const fnArgCount = fn.length
 
-  // Apply curryMerge instead if this is a single arg function where the argument has multiple keys
+  // Apply curryMerge instead if this is a single or zero arg function
   if (Config.executeOptions.curryMerge && fnArgCount === 1) {
-    return curryMerge(fn, args[0])
+    return curryMerge(fn, args && args[0])
   }
 
+  return classicCurry(fn, ...args)
+}
+
+function classicCurry(fn: Function, ...args: any[]) {
   return (...rest: any[]) => {
-    if (args.length + rest.length >= fnArgCount) {
+    if (args.length + rest.length >= fn.length) {
       return fn(...args, ...rest)
     }
-    return curry(fn, ...[...args, ...rest])
+    return classicCurry(fn, ...[...args, ...rest])
   }
 }

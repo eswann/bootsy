@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import { getType } from '../test-helpers/type-helper'
-import { curryMerge } from '../../src'
+import { curry, curryMerge } from '../../src'
 
 describe('curryMerge', () => {
   it('should create and execute a merged partial function', () => {
@@ -14,6 +14,47 @@ describe('curryMerge', () => {
         c: 3,
       })
     ).to.equal(6)
+  })
+
+  // it('should create and execute a merged partial function in multiple steps', () => {
+  //   const fn = ({ a, b, c }) => a + b + c
+  //   const curried = curryMerge(fn, { a: 1 })
+  //   const curriedWithAnotherArg = curried({ b: 2 })
+  //   expect(getType(curriedWithAnotherArg)).to.equal('Function')
+  //   expect(
+  //     curried({
+  //       c: 3,
+  //     })
+  //   ).to.equal(6)
+  // })
+
+  it('should create and execute a merged complete function', () => {
+    const fn = ({ a, b, c }) => a + b + c
+    const curried = curryMerge(fn, { a: 1, b: 2, c: 3 })
+
+    expect(getType(curried)).to.equal('Function')
+    expect(curried()).to.equal(6)
+  })
+
+  it('should execute a function with no arguments', () => {
+    const fn = () => 'Sup!'
+    const curried = curryMerge(fn, null)
+    expect(curried()).to.equal('Sup!')
+  })
+
+  it('should curry a function with a single string argument', () => {
+    const returnAString = (a) => a
+    const curriedReturnAString = curryMerge(returnAString)
+    const result = curriedReturnAString('test1')
+
+    expect(result).to.equal('test1')
+  })
+
+  it('should execute function with a single string argument with arg supplied', () => {
+    const returnAString = (a) => a
+    const curried = curryMerge(returnAString, 'test1')
+
+    expect(curried()).to.equal('test1')
   })
 
   it('should work with promise', (done) => {

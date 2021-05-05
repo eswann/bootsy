@@ -8,19 +8,20 @@ import ObjectFunction = FunctionTypes.ObjectFunction
  * @param fn The function to call
  * @param arg The partial arguments provided
  */
-export function curryMerge(fn: Function, arg: Object = {}): ObjectFunction {
-  if (!isPlainObject(arg)) {
-    return fn(arg)
-  }
-
+export function curryMerge(fn: Function, arg = {}): ObjectFunction {
   return (rest) => {
     if (isAsync(fn)) {
       return new Promise((resolve, reject) => {
-        fn({ ...rest, ...arg })
+        ;(isPlainObject(arg) && (!rest || isPlainObject(rest))
+          ? fn({ ...rest, ...arg })
+          : fn(rest ?? arg)
+        )
           .then(resolve)
           .catch(reject)
       })
     }
-    return fn({ ...rest, ...arg })
+    return isPlainObject(arg) && (!rest || isPlainObject(rest))
+      ? fn({ ...rest, ...arg })
+      : fn(rest ?? arg)
   }
 }

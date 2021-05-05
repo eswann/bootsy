@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { curry, curryMerge } from '../../src'
+import { curry } from '../../src'
 import { getType } from '../test-helpers/type-helper'
 
 const greet = (salutation, title, firstName, lastName) =>
@@ -13,6 +13,18 @@ describe('curry', () => {
     const g = f(3)
 
     expect(g(4)).to.equal(10)
+  })
+
+  it('should curry a function with all arguments supplied', () => {
+    const addFourNumbers = (a, b, c, d) => a + b + c + d
+    const curriedAddFourNumbers = curry(addFourNumbers, 1, 2, 3, 4)
+    expect(curriedAddFourNumbers()).to.equal(10)
+  })
+
+  it('should execute a function with no arguments', () => {
+    const fn = () => 'Sup!'
+    const curried = curry(fn, null)
+    expect(curried()).to.equal('Sup!')
   })
 
   it('should curry a function with a single string', () => {
@@ -69,7 +81,15 @@ describe('curry', () => {
     expect(barFn(1, 2)).to.deep.equal({ a: [1, 2], b: [], c: 1, d: 2 })
   })
 
-  it('should meet ramda spec', () => {
+  it('should curry a curried function with multiple final args', () => {
+    const sayHello = curry(greet, 'Hello')
+    const sayHelloToMs = curry(sayHello, 'Ms.')
+    const sayHelloToMsJane = curry(sayHelloToMs, 'Jane')
+
+    expect(sayHelloToMsJane('Jones')).to.equal('Hello, Ms. Jane Jones!')
+  })
+
+  it('should curry a curried function with one final arg', () => {
     const sayHello = curry(greet, 'Hello')
     const sayHelloToMs = curry(sayHello, 'Ms.')
 
