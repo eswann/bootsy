@@ -18,7 +18,7 @@ describe('Logging Util', () => {
     const loggerSpy = sinon.spy(console, 'debug')
 
     const startTime = logFunctionStart(Config.executeOptions, testFunc, ['testArg1', 'testArg2'])
-    await delay(10)
+    await delay(11)
     const duration = logDuration(Config.executeOptions, testFunc, startTime)
 
     expect(duration).to.be.greaterThan(10)
