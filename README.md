@@ -4,6 +4,8 @@
 
 Funky fresh (and easy) functional-lite!
 
+<img src="https://github.com/eswann/bootsy/actions/workflows/ci-build.yml/badge.svg"/>
+
 ### Why?
 Bootsy was created to make functional composition as pragmatic as possible. Sure there's Ramda, Lodash, and others,
 but the idea behind Bootsy was to make everyday functional tasks easier, and provide additional features
