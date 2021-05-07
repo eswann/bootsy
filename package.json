@@ -10,7 +10,7 @@
   "scripts": {
     "build": "tsc --build",
     "test": "mocha -r ts-node/register test/**/*.spec.ts",
-    "coverage": "nyc npm run test",
+    "coverage": "nyc --reporter=lcov npm run test",
     "lint": "eslint . --ext .ts"
   },
   "repository": {
