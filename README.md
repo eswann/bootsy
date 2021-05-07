@@ -4,7 +4,8 @@
 
 Funky fresh (and easy) functional-lite!
 
-<img src="https://github.com/eswann/bootsy/actions/workflows/ci-build.yml/badge.svg"/>
+<img src="https://github.com/eswann/bootsy/actions/workflows/ci-build.yml/badge.svg"></img>
+[![Coverage Status](https://coveralls.io/repos/github/eswann/bootsy/badge.svg?branch=main)](https://coveralls.io/github/eswann/bootsy?branch=main)
 
 ### Why?
 Bootsy was created to make functional composition as pragmatic as possible. Sure there's Ramda, Lodash, and others,
