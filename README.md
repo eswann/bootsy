@@ -38,7 +38,7 @@ support pipeAsync and composeAsync
 const testAsyncFunc1 = async (myArg) => {
   const result1 = await myAsyncFunc(myArg)
   const result2 = await myAsyncFunc2(result1)
-  return result2
+  return result2 
 }
 const testAsyncFunc2 = async (myArg) => {
   const result3 = await myAsyncFunc3(myArg)
