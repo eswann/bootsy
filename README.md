@@ -44,7 +44,7 @@ const testAsyncFunc2 = async (myArg) => {
   const result3 = await myAsyncFunc3(myArg)
   return `${rootText} One nation under a groove`
 }
-// Pipe it!!!
+// Pipe it!!! 
 const pipedResult = await pipeAsync(testAsyncFunc1, testAsyncFunc2)('Give up the funk!')
 // Compose it!!!
 const composedResult = await composeAsync(testAsyncFunc2, testAsyncFunc1)('funk the up Give!')
